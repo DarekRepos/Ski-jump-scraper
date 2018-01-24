@@ -2,10 +2,11 @@
 Script to scrape Wordpress blog
 """
 
-import urllib.request
-from urllib.error import URLError, HTTPError, ContentTooShortError
 import re
+import urllib.request
 from urllib import robotparser
+from urllib.error import URLError, HTTPError, ContentTooShortError
+from urllib.parse import urljoin
 
 
 def download(url, user_agent='wswp', num_retries=2, charset='utf-8', proxy=None):
@@ -69,6 +70,8 @@ def link_crawler(start_url, link_regex):
     :return:
     """
     crawl_queue = [start_url]
+    # keep track which URL's have seen before
+    seen = set(crawl_queue)
     while crawl_queue:
         url = crawl_queue.pop()
         html = download(url)
@@ -77,8 +80,10 @@ def link_crawler(start_url, link_regex):
         # filter for links matching our regular expression
         for link in get_links(html):
             if re.match(link_regex, link):
-                crawl_queue.append(link)
+                abs_link = urljoin(start_url, link)
+                if abs_link not in seen:
+                    crawl_queue.append(abs_link)
 
 
 if __name__ == '__main__':
-    link_crawler('http://dudawebsite.com/blog', '/(blog)/')
+    link_crawler('http://example.webscraping.com', '/index/')

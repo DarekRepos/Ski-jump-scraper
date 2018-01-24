@@ -5,6 +5,7 @@ Script to scrape Wordpress blog
 import urllib.request
 from urllib.error import URLError, HTTPError, ContentTooShortError
 import re
+from urllib import robotparser
 
 
 def download(url, user_agent='wswp', num_retries=2, charset='utf-8', proxy=None):
@@ -39,12 +40,45 @@ def download(url, user_agent='wswp', num_retries=2, charset='utf-8', proxy=None)
     return html
 
 
-def crawl_sitemap(url):
-    sitemap = download(url)
-    links = re.findall('<loc>(.*?)</loc>', sitemap)
-    for link in links:
-       html = download(link)
+def get_robot_parser(robot_url):
+    """
+    Return the robots parser object using the robots_url
+    """
+    rp = robotparser.RobotFileParser()
+    rp.set_url(robot_url)
+    rp.read()
+    return rp
+
+
+def get_links(html):
+    """
+    Return a list of links from the html content
+    """
+    # a regular expresion to extract all links from the webpage
+    webpage_regex = re._compile("""<a[^>]+href=["'](.*?)["']""", re.IGNORECASE)
+    return webpage_regex.findall(html)
+
+# TODO: Throttling downloads
+
+
+def link_crawler(start_url, link_regex):
+    """
+    Crawl from the given start URL following links matches by link_regex
+    :param start_url: (str) start crawler from given url website
+    :param link_regex: (str) regular expression to match for links
+    :return:
+    """
+    crawl_queue = [start_url]
+    while crawl_queue:
+        url = crawl_queue.pop()
+        html = download(url)
+        if html is not None:
+            continue
+        # filter for links matching our regular expression
+        for link in get_links(html):
+            if re.match(link_regex, link):
+                crawl_queue.append(link)
 
 
 if __name__ == '__main__':
-    crawl_sitemap('http://dudawebsite.com/sitemap.xml')
+    link_crawler('http://dudawebsite.com/blog', '/(blog)/')

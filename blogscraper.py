@@ -7,6 +7,7 @@ from urllib import robotparser
 from urllib.parse import urljoin
 
 import requests
+from bs4 import BeautifulSoup
 
 from throttle import Throttle
 
@@ -49,6 +50,14 @@ def get_robot_parser(robot_url):
     return rp
 
 
+def li_scraper(html):
+    """Using beautifullsoup to extract data from country pages. """
+    soup = BeautifulSoup(html, 'html.parser')
+    results = soup.find_all('div').text
+    print(results)
+    return results
+
+
 def get_links(html):
     """
     Return a list of links from the html content
@@ -81,10 +90,11 @@ def link_crawler(start_url, link_regex, robots_url=None, user_agent='wswp', prox
                 print('Skipping %s due to depth' % url)
                 continue
             throttle.wait(url)
-            html = download(url, user_agent=user_agent, proxy=proxy)
+            html = download(url, user_agent=user_agent, proxies=proxy)
             if html is not None:
                 continue
-            # TODO: add actual data scraping here
+
+            print(li_scraper(html))
             # filter for links matching our regular expression
             for link in get_links(html):
                 if re.match(link_regex, link):
@@ -97,6 +107,9 @@ def link_crawler(start_url, link_regex, robots_url=None, user_agent='wswp', prox
 
 
 if __name__ == '__main__':
-    link_crawler('http://dudawebsite.com', '/blog')
-    # TODO: crawl blog website
+    link_crawler('http://www.skokinarciarskie.pl', 'zawodnicy')
+
+
+
+
     # TODO: save to csv or excel

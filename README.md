@@ -1,2 +1,2 @@
-# Wordpress-blog-scraper
-copies contents from the wordpress websites and save to external file
+# Ski-jump-scraper
+copies contents from the ski jump website and save to external file

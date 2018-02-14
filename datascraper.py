@@ -22,22 +22,32 @@ def download(url, user_agent='wswp', num_retries=2, proxies=None):
     :param proxy: (str) proxy url, ex 'http://IP' (default: None)
     :return:
     """
-    print('Downloading:', url)
-    headers = {'User-Agent': user_agent}
-    try:
-        resp = requests.get(url, headers=headers, proxies=proxies)
-        html = resp.text
-        if resp.status_code >= 400:
-            print('Download error: ', resp.text)
-            html = None
-            if num_retries and 500 <= resp.status_code < 600:
-                # recursively retry 5xx HTTP errors
-                return download(url, num_retries - 1)
 
-    except requests.exceptions.RequestException as e:
-        print('Download error:', e.reason)
-        html = None
-    return html
+    def download(url, num_retries=2, user_agent='wswp', proxies=None):
+        """ Download a given URL and return the page content
+            args:
+                url (str): URL
+            kwargs:
+                user_agent (str): user agent (default: wswp)
+                proxies (dict): proxy dict w/ keys 'http' and 'https', values
+                                are strs (i.e. 'http(s)://IP') (default: None)
+                num_retries (int): # of retries if a 5xx error is seen (default: 2)
+        """
+        print('Downloading:', url)
+        headers = {'User-Agent': user_agent}
+        try:
+            resp = requests.get(url, headers=headers, proxies=proxies)
+            html = resp.content
+            if resp.status_code >= 400:
+                print('Download error:', resp.text)
+                html = None
+                if num_retries and 500 <= resp.status_code < 600:
+                    # recursively retry 5xx HTTP errors
+                    return download(url, num_retries - 1)
+        except requests.exceptions.RequestException as e:
+            print('Download error:', e)
+            html = None
+        return html
 
 
 def get_robot_parser(robot_url):
@@ -53,7 +63,7 @@ def get_robot_parser(robot_url):
 def li_scraper(html):
     """Using beautifullsoup to extract data from country pages. """
     soup = BeautifulSoup(html, 'html.parser')
-    results = soup.find_all('div').text
+    results = len(soup.find_all('div', {'class': 'program1_czas'}))
     print(results)
     return results
 
@@ -94,7 +104,7 @@ def link_crawler(start_url, link_regex, robots_url=None, user_agent='wswp', prox
             if html is not None:
                 continue
 
-            print(li_scraper(html))
+            li_scraper(html)
             # filter for links matching our regular expression
             for link in get_links(html):
                 if re.match(link_regex, link):
@@ -107,7 +117,7 @@ def link_crawler(start_url, link_regex, robots_url=None, user_agent='wswp', prox
 
 
 if __name__ == '__main__':
-    link_crawler('http://www.skokinarciarskie.pl', 'zawodnicy')
+    link_crawler('http://www.skokinarciarskie.pl', 'images')
 
 
 

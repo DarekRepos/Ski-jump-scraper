@@ -11,7 +11,7 @@ def interest_tags(tag):
                "programgl_pole2" in classes
 
 
-def scrape_skisite():
+def main():
     FIELDS = ('programgl_czas', 'programgl_impreza', 'programgl_wydarzenie')
 
     url = 'http://www.skokinarciarskie.pl/'
@@ -19,17 +19,18 @@ def scrape_skisite():
     res = ss.get(url)
     soup = BeautifulSoup(res.content, 'html5lib')
 
+    file = open("SkiEvents.txt", "a+")
+
     for days in soup.find_all(interest_tags):
 
         if days.attrs == {'class': ['programgl_data']}:
-            print(days.get_text(), end=' ')
+            file.write(days.get_text() + " ")
 
         hours = days.find_all('div', class_={FIELDS})
         for event in hours:
-            print(event.get_text(), end=' ')
+            file.write(event.get_text() + "|")
 
-        print("")
-
+        file.write("\n")
 
 if __name__ == '__main__':
-    scrape_skisite()
+    main()

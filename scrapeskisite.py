@@ -3,13 +3,12 @@ import requests
 from bs4 import BeautifulSoup
 
 
-def interest_tags(tag):
+def event_tags(tag):
     if tag.name == "div":
         classes = tag.get("class", [])
         return "programgl_data" in classes or \
                "programgl_pole1" in classes or \
                "programgl_pole2" in classes
-
 
 def main():
     FIELDS = ('programgl_czas', 'programgl_impreza', 'programgl_wydarzenie')
@@ -21,7 +20,7 @@ def main():
 
     file = open("SkiEvents.txt", "a+")
 
-    for days in soup.find_all(interest_tags):
+    for days in soup.find_all(event_tags):
 
         if days.attrs == {'class': ['programgl_data']}:
             file.write(days.get_text() + " ")

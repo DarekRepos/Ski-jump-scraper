@@ -2,14 +2,6 @@
 import requests
 from bs4 import BeautifulSoup
 
-FIELDS = ('programgl_czas', 'programgl_impreza', 'programgl_wydarzenie')
-stories = []
-
-url = 'http://www.skokinarciarskie.pl/'
-ss = requests.Session()
-res = ss.get(url)
-soup = BeautifulSoup(res.content, 'html5lib')
-
 
 def interest_tags(tag):
     if tag.name == "div":
@@ -19,13 +11,25 @@ def interest_tags(tag):
                "programgl_pole2" in classes
 
 
-for czasy in soup.find_all(interest_tags):
+def scrape_skisite():
+    FIELDS = ('programgl_czas', 'programgl_impreza', 'programgl_wydarzenie')
 
-    if czasy.attrs == {'class': ['programgl_data']}:
-        print(czasy.get_text(), end=' ')
+    url = 'http://www.skokinarciarskie.pl/'
+    ss = requests.Session()
+    res = ss.get(url)
+    soup = BeautifulSoup(res.content, 'html5lib')
 
-    stories = czasy.find_all('div', class_={FIELDS})
-    for ss in stories:
-        print(ss.get_text(), end=' ')
+    for days in soup.find_all(interest_tags):
 
-    print("")
+        if days.attrs == {'class': ['programgl_data']}:
+            print(days.get_text(), end=' ')
+
+        hours = days.find_all('div', class_={FIELDS})
+        for event in hours:
+            print(event.get_text(), end=' ')
+
+        print("")
+
+
+if __name__ == '__main__':
+    scrape_skisite()

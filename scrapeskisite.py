@@ -31,5 +31,8 @@ def main():
 
         file.write("\n")
 
+    print("Dane zapisano w pliku SkiEvents.txt")
+
+
 if __name__ == '__main__':
     main()

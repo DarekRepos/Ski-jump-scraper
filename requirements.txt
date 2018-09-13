@@ -11,6 +11,6 @@ mercurial==4.5.3
 pycrypto==2.6.1
 pygobject==3.30.0
 pyxdg==0.26
-rope==0.10.5
+rope==0.11.0
 SecretStorage==3.1.0
 six==1.11.0

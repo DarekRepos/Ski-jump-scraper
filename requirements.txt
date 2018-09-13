@@ -1,0 +1,16 @@
+asn1crypto==0.24.0
+beautifulsoup4==4.6.3
+chardet==3.0.4
+cryptography==2.1.4
+enum34==1.1.6
+idna==2.6
+ipaddress==1.0.17
+keyring==10.6.0
+keyrings.alt==3.0
+mercurial==4.5.3
+pycrypto==2.6.1
+pygobject==3.26.1
+pyxdg==0.25
+rope==0.10.5
+SecretStorage==2.3.1
+six==1.11.0

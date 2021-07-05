@@ -44,7 +44,7 @@ systemd-python==234
 ubuntu-drivers-common==0.0.0
 ufw==0.36
 unattended-upgrades==0.1
-urllib3==1.23
+urllib3==1.26.5
 webencodings==0.5.1
 xkit==0.0.0
 chardet>=3.0.4

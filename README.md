@@ -25,7 +25,7 @@ sudo crontab -e
 Scroll to the bottom and add the following line (after all the #'s):
 
 ```commandline
-@reboot python ~/Desktop/scrapeskisite.py &
+reboot python ~/Desktop/scrapeskisite.py &
 ```
 
 The “&” at the end of the line means the command is run in the background and it won’t stop the system booting up.

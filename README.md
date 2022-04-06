@@ -1,8 +1,10 @@
 # Ski-jump-scraper
 
-copies contents from the ski jump website and save to external file
+Copies contents from the ski jump website and save to external file
 
-note that there must be some ski events to see results in the file
+Events are saved to SkiEvents.txt file, the program create this file when user erase it.
+
+Note that there must be some ski events to see results in the file
 
 # Run Python script at startup in Ubuntu if you want check the ski events on the system startup
 

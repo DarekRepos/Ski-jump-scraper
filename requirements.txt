@@ -3,5 +3,5 @@ cryptography==3.3.2
 entrypoints==0.2.3
 html5lib==1.0.1
 httplib2==0.11.3
-requests==2.19.1
+requests==2.20.0
 wheel==0.37.1

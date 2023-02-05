@@ -6,7 +6,17 @@ Events are saved to SkiEvents.txt file, the program create this file when user e
 
 Note that there must be some ski events to see results in the file
 
-# Run Python script at startup in Ubuntu if you want check the ski events on the system startup
+## Python version
+tested with Python 3.10.6
+
+## How to install in python 3
+python3 -m pip install -r requirements.txt
+
+## How to run
+
+python3 scrapeskisite.py
+
+## Run Python script at startup in Ubuntu if you want check the ski events on the system startup
 
 **1. Copy repository files to your Desktop**
 

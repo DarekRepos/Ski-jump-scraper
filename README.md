@@ -9,12 +9,21 @@ Events are saved to SkiEvents.txt file, the program create this file when user e
 ## Python version
 tested with Python 3.10.6
 
-## How to install in python 3
-python3 -m pip install -r requirements.txt
+## How to run (example for POSIX platform)
 
-## How to run
+Create virtual enviroment
+`python -m venv venv`
 
-python3 scrapeskisite.py
+Activate virtual enviroment
+`source venv/bin/activate`
+
+Install required packages 
+`python3 -m pip install -r requirements.txt`
+
+Run script command
+`python3 scrapeskisite.py`
+
+You should have created txt file SkiEvents.txt
 
 ## Contributing
 issue tracker: https://github.com/DarekRepos/Ski-jump-scraper/issues

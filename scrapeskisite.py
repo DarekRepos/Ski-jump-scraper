@@ -16,7 +16,7 @@ def main():
     url = 'http://www.skokinarciarskie.pl/'
     ss = requests.Session()
     res = ss.get(url)
-    soup = BeautifulSoup(res.content, 'html5lib')
+    soup = BeautifulSoup(res.content, 'html.parser')
 
     file = open("SkiEvents.txt", "a+")
 

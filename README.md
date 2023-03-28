@@ -28,3 +28,8 @@ You should have created txt file SkiEvents.txt
 
 ## Contributing
 issue tracker: https://github.com/DarekRepos/Ski-jump-scraper/issues
+
+## License
+MIT License
+
+[License file](https://github.com/DarekRepos/Ski-jump-scraper/blob/master/LICENSE)

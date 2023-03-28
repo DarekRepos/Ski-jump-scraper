@@ -10,6 +10,7 @@ Events are saved to SkiEvents.txt file, the program create this file when user e
 tested with Python 3.10.6
 
 ## How to run (example for POSIX platform)
+Clone or download this repository
 
 Create virtual enviroment
 `python -m venv venv`

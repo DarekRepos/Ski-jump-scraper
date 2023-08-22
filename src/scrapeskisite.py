@@ -41,6 +41,7 @@ def event_tags(tag):
             or word_cup_event_node_1 in classes
             or word_cup_event_node_2 in classes
         )
+    return None
 
 
 def main():

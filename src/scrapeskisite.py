@@ -41,6 +41,7 @@ def event_tags(tag):
             or word_cup_event_node_1 in classes
             or word_cup_event_node_2 in classes
         )
+    return None
 
 
 def main():
@@ -65,7 +66,7 @@ def main():
 
     with open("SkiEvents.txt", "a+",  encoding="utf-8") as file:
         # Iterate for every node that contain a day of the event
-        # or all events in the Ski World Cup 
+        # or all events in the Ski World Cup
         for node in soup.find_all(event_tags):
             # write an event date to the file
             if node.attrs == {"class": ["programgl_data"]}:

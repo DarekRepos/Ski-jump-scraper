@@ -25,6 +25,7 @@ Run script command
 `python3 scrapeskisite.py`
 
 You should have created txt file SkiEvents.txt
+[<img src="examples/exampples.png">](http://example.com/)
 
 ## Contributing
 issue tracker: https://github.com/DarekRepos/Ski-jump-scraper/issues

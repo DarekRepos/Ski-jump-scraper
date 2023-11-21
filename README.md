@@ -24,7 +24,7 @@ Install required packages
 Run script command
 `python3 scrapeskisite.py`
 
-You should have created txt file SkiEvents.txt
+You should have created file named "SkiEvents.txt" 
 [<img src="examples/examples.png">](http://example.com/)
 
 ## Contributing

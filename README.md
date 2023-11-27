@@ -1,10 +1,10 @@
 # Ski-jump-scraper
 
-Copies contents from the ski jump website and save to external file
+This script copies contents from the Ski Jump website and saves them to an external file.
 
-Events are saved to SkiEvents.txt file, the program create this file when user erase it.
+Events are saved to the "SkiEvents.txt" file; the program creates this file when the user erases it.
 
-** Note that ** there must be some ski events to see results in the file
+**Note that** there must be some ski events to see results in the file.
 
 ## Python version
 tested with Python 3.10.6
@@ -24,7 +24,7 @@ Install required packages
 Run script command
 `python3 scrapeskisite.py`
 
-You should have created file named "SkiEvents.txt" 
+You should have created a file named "SkiEvents.txt."
 [<img src="examples/examples.png">](http://example.com/)
 
 ## Contributing

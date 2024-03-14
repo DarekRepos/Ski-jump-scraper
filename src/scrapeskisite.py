@@ -7,6 +7,12 @@ Example:
 
 python3 scrapeskisite.py
 
+Example:
+
+>>> from scrapeskisite import scrape
+>>> scrape()
+Data saved to the file SkiEvents.txt
+
 @Author: Darek Duda
 @Date: 18.05.2023
 @Credit: DarekRepos
@@ -18,7 +24,20 @@ from bs4 import BeautifulSoup
 
 
 def has_event_data_classes(tag):
-    """Checks if a tag has classes associated with event data."""
+    """
+    Checks if a tag has classes associated with event data.
+
+    Args:
+    tag (bs4.element.Tag): The BeautifulSoup Tag object.
+
+    Returns:
+    bool: True if the tag has classes associated with event data, False otherwise.
+
+    >>> from bs4 import BeautifulSoup
+    >>> tag = BeautifulSoup('<div class="programgl_data"></div>', 'html.parser').div
+    >>> has_event_data_classes(tag)
+    True
+    """
     # Refine search criteria based on HTML structure
     # (consider adding more css class names if needed)
     classes = ["programgl_data", "programgl_pole1", "programgl_pole2", ...]
@@ -26,7 +45,23 @@ def has_event_data_classes(tag):
 
 
 def write_event_data(file, node, fields):
-    """Extracts and writes event data from a node."""
+    """
+    Extracts and writes event data from a node.
+
+    Args:
+    file (file object): The file object to write event data.
+    node (bs4.element.Tag): The BeautifulSoup Tag object containing event data.
+    fields (list): A list of field classes to search for within the node.
+
+    >>> from bs4 import BeautifulSoup
+    >>> with open('test.txt', 'w') as file:
+    ...     node = BeautifulSoup('<div class="programgl_data">Event Data</div>', 'html.parser').div
+    ...     fields = ["programgl_czas", "programgl_impreza", "programgl_wydarzenie"]
+    ...     write_event_data(file, node, fields)
+    >>> with open('test.txt', 'r') as file:
+    ...     file.read()
+    'Event Data '
+    """
     if node.attrs == {"class": ["programgl_data"]}:
         file.write(node.get_text() + " ")
     else:
@@ -35,7 +70,7 @@ def write_event_data(file, node, fields):
             file.write(event.get_text() + "|")
 
 
-def main():
+def scrape():
     """
     Main function that program are executed
     """
@@ -59,8 +94,8 @@ def main():
         for node in soup.find_all(has_event_data_classes):
             write_event_data(file, node, fields)
             file.write("\n")
-        print("Dane zapisano w pliku SkiEvents.txt")
+        print("Data saved to the file SkiEvents.txt")
 
 
 if __name__ == "__main__":
-    main()
+    scrape()

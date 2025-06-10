@@ -9,7 +9,7 @@ httplib2==0.19.0
 idna==3.7
 pycparser==2.21
 pyparsing==2.4.7
-requests==2.32.0
+requests==2.32.4
 six==1.16.0
 soupsieve==2.4
 urllib3==1.26.19
